@@ -1,17 +1,22 @@
 package com.usuario.usuario.service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.usuario.usuario.model.Usuario;
 import com.usuario.usuario.model.dto.UsuarioDTO;
+import com.usuario.usuario.model.dto.UsuarioDTOUpdate;
 
 
 public interface UsuarioService {
+
     Usuario saveUsuario(UsuarioDTO dto);
 
+    Usuario updateUsuario(Long id, UsuarioDTOUpdate dto);
+
     List<Usuario> getAll();
+
+    Usuario getById(Long id);
+    
+    Usuario getByCpf(String cpf);
 
 
 
