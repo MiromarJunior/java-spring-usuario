@@ -2,6 +2,8 @@ package com.usuario.usuario.model.dto;
 
 
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,5 +27,10 @@ public class UsuarioDTOUpdate {
     @NotBlank(message ="Campo obrigatório")
     @Email(message = "Email inválido")
     private String usroEmail;
+    
+    @NotBlank(message ="Campo obrigatório")
+    private String usroCelular1;
+
+    private LocalDate usroDtNascimento;
     
 }

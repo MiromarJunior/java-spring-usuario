@@ -1,5 +1,7 @@
 package com.usuario.usuario.model.dto;
 
+import java.time.LocalDate;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import jakarta.validation.constraints.Email;
@@ -30,5 +32,10 @@ public class UsuarioDTO {
     @NotBlank(message ="Campo obrigatório")
     @Email(message = "Email inválido")
     private String usroEmail;
+
+    @NotBlank(message ="Campo obrigatório")
+    private String usroCelular1;
+
+    private LocalDate usroDtNascimento;
     
 }

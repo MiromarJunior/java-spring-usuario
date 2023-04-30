@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.usuario.usuario.model.Usuario;
 import com.usuario.usuario.model.dto.UsuarioDTO;
+import com.usuario.usuario.model.dto.UsuarioDTOTeste;
 import com.usuario.usuario.model.dto.UsuarioDTOUpdate;
 import com.usuario.usuario.service.UsuarioService;
 
@@ -40,8 +42,14 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable Long id){
-      Usuario usu = usuService.getById(id);
-       
+      Usuario usu = usuService.getById(id);      
+        return new ResponseEntity<>(usu,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/usu")
+    public ResponseEntity<List<UsuarioDTOTeste>> getById(){
+      List<UsuarioDTOTeste> usu = usuService.findCpfNome();      
         return new ResponseEntity<>(usu,HttpStatus.OK);
 
     }
@@ -61,7 +69,7 @@ public class UsuarioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Usuario> updateUsu(@Valid @PathVariable Long id, @RequestBody  UsuarioDTOUpdate dto){
+    public ResponseEntity<Usuario> updateUsu( @PathVariable Long id, @Valid @RequestBody  UsuarioDTOUpdate dto){
        Usuario usu = usuService.updateUsuario(id, dto);
       return  ResponseEntity.ok().body(usu);
 
