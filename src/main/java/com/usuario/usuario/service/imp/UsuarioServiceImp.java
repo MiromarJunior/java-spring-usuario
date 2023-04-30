@@ -20,25 +20,25 @@ public class UsuarioServiceImp implements UsuarioService {
     UsuarioRepository usuRepo;
 
     private void validaCpf(String cpf){
-        String cpfString = cpf.replaceAll("\\D+", "");
-         usuRepo.findByCpf(cpfString).isPresent();
-        if(usuRepo.findByCpf(cpfString).isPresent()){
+        String cpfString = cpf.replaceAll("\\D+", "");        
+        if(usuRepo.findByUsroCpf(cpfString).isPresent()){
            throw new ResponseStatusException(HttpStatus.CONFLICT,
             "Erro ao Cadastrar ou Atualizar Usuário - CPF já Cadastrado: ");
         }
 
     }
 
+   
     @Override
     public Usuario saveUsuario(UsuarioDTO dto) {
-        Usuario usu = new Usuario();
-       validaCpf(dto.getCpf());
-       System.out.println("Aqui é um teste");       
+       Usuario usu = new Usuario();
+       validaCpf(dto.getUsroCpf());
+           
 
-        usu.setNome(dto.getNome());
-        usu.setUsuario(dto.getUsuario());
-        usu.setEmail(dto.getEmail());
-        usu.setCpf(dto.getCpf());
+        usu.setUsroNome(dto.getUsroNome());
+        usu.setUsroUsuario(dto.getUsroUsuario());
+        usu.setUsroEmail(dto.getUsroEmail());
+        usu.setUsroCpf(dto.getUsroCpf());
 
         usuRepo.save(usu);
         return usu;
@@ -59,17 +59,12 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario updateUsuario(Long id, UsuarioDTOUpdate dto) {
-
-     Usuario usu = usuRepo.findById(id)
-     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-     "Usuário não encontrado com o ID: " + id));
-
-     System.out.println("Entrou aqui no modelo");
-        
-        usu.setId(id);
-        usu.setNome(dto.getNome());
-        usu.setUsuario(dto.getUsuario());
-        usu.setEmail(dto.getEmail());     
+     Usuario usu = getById(id); 
+           
+        usu.setUsuarioId(id);
+        usu.setUsroNome(dto.getUsroNome());
+        usu.setUsroUsuario(dto.getUsroUsuario());
+        usu.setUsroEmail(dto.getUsroEmail());    
 
         usuRepo.save(usu);
         return usu;
@@ -77,11 +72,13 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public Usuario getByCpf(String cpf) {
-        Usuario usu = usuRepo.findByCpf(cpf)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-        "Usuário não encontrado com o Cpf: " + cpf));
-       return usu;
+    public Void deleteUsuario(Long id) {          
+        getById(id);       
+        usuRepo.deleteById(id);
+        return null;
+
     }
+
+
     
 }

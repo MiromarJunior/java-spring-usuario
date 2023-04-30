@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,13 +46,7 @@ public class UsuarioController {
 
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<Usuario> getByCpf(@PathVariable String cpf){
-      Usuario usu = usuService.getByCpf(cpf);
-       
-        return new ResponseEntity<>(usu,HttpStatus.OK);
 
-    }
 
     @PostMapping
     public ResponseEntity<Usuario> saveUsu(@Valid @RequestBody  UsuarioDTO dto){
@@ -59,7 +54,7 @@ public class UsuarioController {
        URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(usu.getId())
+        .buildAndExpand(usu.getUsuarioId())
         .toUri();
       return  ResponseEntity.created(uri).body(usu);
 
@@ -70,6 +65,12 @@ public class UsuarioController {
        Usuario usu = usuService.updateUsuario(id, dto);
       return  ResponseEntity.ok().body(usu);
 
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id){
+      usuService.deleteUsuario(id);
+      return ResponseEntity.ok().build();
     }
     
 }

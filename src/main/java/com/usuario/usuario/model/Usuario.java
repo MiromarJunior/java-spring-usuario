@@ -17,19 +17,19 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long usuarioId;
 
     @Column(length = 128)
-    private String nome;
+    private String usroNome;
 
     @Column(length = 64, unique = true)
-    private String usuario;
+    private String usroUsuario;
 
     @Column(length = 11, unique = true,nullable = false)
-    private String cpf;
+    private String usroCpf;
 
     
-    private String email;
+    private String usroEmail;
     
     
 }

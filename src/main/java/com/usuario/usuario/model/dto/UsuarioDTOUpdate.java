@@ -16,14 +16,14 @@ public class UsuarioDTOUpdate {
 
     @NotBlank(message ="Campo obrigatório")
     @Size(min = 3, max = 128, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
-    private String nome;
+    private String usroNome;
     
     @NotBlank(message ="Campo obrigatório")
     @Size(min = 3, max = 64, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
-    private String usuario;
+    private String usroUsuario;
 
     @NotBlank(message ="Campo obrigatório")
     @Email(message = "Email inválido")
-    private String email;
+    private String usroEmail;
     
 }

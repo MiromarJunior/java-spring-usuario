@@ -15,8 +15,10 @@ public interface UsuarioService {
     List<Usuario> getAll();
 
     Usuario getById(Long id);
+
+    Void deleteUsuario(Long id);
     
-    Usuario getByCpf(String cpf);
+
 
 
 
